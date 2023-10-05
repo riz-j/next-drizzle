@@ -1,8 +1,8 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "eb9c32eb-734b-4633-a23d-0c7a0c720d30",
-  "prevId": "6950964f-6e1d-48d1-bed0-75e70227317c",
+  "id": "ac977280-01ef-4982-ba59-e97f4bc0e151",
+  "prevId": "eb9c32eb-734b-4633-a23d-0c7a0c720d30",
   "tables": {
     "cities": {
       "name": "cities",
@@ -120,6 +120,12 @@
         "name": {
           "name": "name",
           "type": "varchar(256)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "abbrev": {
+          "name": "abbrev",
+          "type": "varchar(128)",
           "primaryKey": false,
           "notNull": false
         },

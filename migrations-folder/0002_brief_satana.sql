@@ -1,0 +1,1 @@
+ALTER TABLE "states" ADD COLUMN "abbrev" varchar(128);
