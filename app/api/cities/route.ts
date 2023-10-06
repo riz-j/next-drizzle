@@ -4,27 +4,15 @@ import { eq, like } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
-    const country = (await db
-        .select({id: countries.id})
-        .from(countries)
-        .where(like(countries.name, '%Indonesia%'))
-    )[0]
-
-    // await db
-    //     .insert(cities)
-    //     .values({
-    //         name: "Las Vegas",
-    //         countryId: country.id
-    //     })
-
-    // const insertedState = (await db
-    //     .insert(states)
-    //     .values({ name: 'DKI Jakarta', countryId: country.id })
-    //     .returning()
-    // )[0]
-    // await db.update(cities).set({ stateId: insertedState.id }).where(like(cities.name, 'Jakarta'))
-
-
+    
+    // db.transaction(async (tx) => {
+    //     const country = (await tx.select().from(countries).where(like(countries.name, '%Indonesia%')))[0]
+    //     const newState = (await tx.insert(states).values({ name: "DKI Jakarta", abbrev: "DKI", countryId: country.id }).returning())[0]
+    
+    //     await tx.update(cities).set({ stateId: newState.id }).where(eq(cities.name, 'Jakarta'))
+    //     await tx.update(cities).set({ stateId: newState.id }).where(eq(cities.name, 'Surabaya'))
+    // })
+    
     const citiesList = await db
         .select({
             id: cities.id,
@@ -38,3 +26,5 @@ export async function GET(request: NextRequest) {
 
     return Response.json(citiesList)
 }
+
+export const dynamic = 'force-dynamic'
