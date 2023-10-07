@@ -23,11 +23,13 @@ export const states = sqliteTable('states', {
   })
 );
 
+export type StateInsert = InferInsertModel<typeof states>
+
 export const cities = sqliteTable('cities', {
-  id: integer('id').primaryKey(),
-  name: text('name'),
-  stateId: integer('state_id').references(() => states.id),
-}, (cities) => ({
-  cityStateNameIdx: uniqueIndex('city_state_name_idx').on(cities.name, cities.stateId)
-})
+    id: integer('id').primaryKey(),
+    name: text('name'),
+    stateId: integer('state_id').references(() => states.id),
+  }, (cities) => ({
+    cityStateNameIdx: uniqueIndex('city_state_name_idx').on(cities.name, cities.stateId)
+  })
 );

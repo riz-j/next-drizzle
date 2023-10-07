@@ -11,6 +11,7 @@ export async function GET() {
 
 export async function POST(request: Request) {
     const countryInsert: CountryInsert = await request.json()
+    delete countryInsert.id 
 
     const newCountry = await db
         .insert(countries)
