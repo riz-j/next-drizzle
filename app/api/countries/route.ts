@@ -1,9 +1,9 @@
-import { db } from "@/app/db";
-import { countries } from "@/app/db/schema";
+import { db } from "@/db";
+import { countries } from "@/db/schema";
 
 export async function GET() {
     
-    db.insert(countries).values({name: "United States"}).run()
+    // db.insert(countries).values({name: "United Kingdom"}).run()
     
     const countriesList = db.select().from(countries).all()
 
