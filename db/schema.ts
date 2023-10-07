@@ -24,6 +24,7 @@ export const states = sqliteTable('states', {
 );
 
 export type StateInsert = InferInsertModel<typeof states>
+export type StateSelect = InferSelectModel<typeof states>
 
 export const cities = sqliteTable('cities', {
     id: integer('id').primaryKey(),
@@ -35,3 +36,4 @@ export const cities = sqliteTable('cities', {
 );
 
 export type CityInsert = InferInsertModel<typeof cities>
+export type CitySelect = InferSelectModel<typeof cities>
