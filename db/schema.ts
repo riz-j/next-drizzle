@@ -33,3 +33,5 @@ export const cities = sqliteTable('cities', {
     cityStateNameIdx: uniqueIndex('city_state_name_idx').on(cities.name, cities.stateId)
   })
 );
+
+export type CityInsert = InferInsertModel<typeof cities>
