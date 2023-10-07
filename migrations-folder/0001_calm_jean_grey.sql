@@ -1,1 +1,0 @@
-ALTER TABLE "countries" ADD COLUMN "long_name" varchar(256);

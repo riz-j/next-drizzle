@@ -1,36 +1,32 @@
 {
   "version": "5",
-  "dialect": "pg",
-  "id": "b8b29949-9ae7-4b6f-b71c-72f857948012",
+  "dialect": "sqlite",
+  "id": "eb5096e4-dc77-4364-aca5-9a77a7c45daf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "cities": {
       "name": "cities",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
-          "type": "varchar(256)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         },
         "country_id": {
           "name": "country_id",
           "type": "integer",
           "primaryKey": false,
-          "notNull": false
-        },
-        "popularity": {
-          "name": "popularity",
-          "type": "popularity",
-          "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {},
@@ -54,24 +50,25 @@
     },
     "countries": {
       "name": "countries",
-      "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "integer",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "autoincrement": false
         },
         "name": {
           "name": "name",
-          "type": "varchar(256)",
+          "type": "text",
           "primaryKey": false,
-          "notNull": false
+          "notNull": false,
+          "autoincrement": false
         }
       },
       "indexes": {
-        "name_idx": {
-          "name": "name_idx",
+        "nameIdx": {
+          "name": "nameIdx",
           "columns": [
             "name"
           ],
@@ -83,17 +80,7 @@
       "uniqueConstraints": {}
     }
   },
-  "enums": {
-    "popularity": {
-      "name": "popularity",
-      "values": {
-        "unknown": "unknown",
-        "known": "known",
-        "popular": "popular"
-      }
-    }
-  },
-  "schemas": {},
+  "enums": {},
   "_meta": {
     "schemas": {},
     "tables": {},

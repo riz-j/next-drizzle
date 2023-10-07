@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "drizzle-kit generate:pg --out migrations-folder --schema app/db/schema.ts"
+    "generate": "drizzle-kit generate:sqlite --out migrations-folder --schema app/db/schema.ts"
   },
   "dependencies": {
+    "better-sqlite3": "^8.7.0",
     "drizzle-orm": "^0.28.6",
     "next": "13.5.4",
     "postgres": "^3.3.5",

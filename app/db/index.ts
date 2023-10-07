@@ -1,7 +1,5 @@
-import { drizzle, PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import { drizzle } from 'drizzle-orm/better-sqlite3';
+import Database from 'better-sqlite3';
   
-// for query purposes
-const database_uri = process.env.DB_URI || ""
-const queryClient = postgres(database_uri);
-export const db: PostgresJsDatabase = drizzle(queryClient)
+const sqlite = new Database('sqlite.db');
+export const db = drizzle(sqlite);
