@@ -1,0 +1,48 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1696636780048,
+      "tag": "0000_outgoing_meltdown",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1696638405028,
+      "tag": "0001_omniscient_zarda",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1696640720030,
+      "tag": "0002_unknown_lyja",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1696641187144,
+      "tag": "0003_previous_blacklash",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1696641482582,
+      "tag": "0004_messy_saracen",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1696641488084,
+      "tag": "0005_gorgeous_clea",
+      "breakpoints": true
+    }
+  ]
+}
