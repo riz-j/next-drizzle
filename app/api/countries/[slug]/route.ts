@@ -1,6 +1,8 @@
 import { db } from "@/db"
 import { CountryInsert, countries } from "@/db/schema"
+import { prepareForPatch } from "@/utils/patch"
 import { eq } from "drizzle-orm"
+import { NextResponse } from "next/server"
 
 export async function GET(
     request: Request,
@@ -17,25 +19,23 @@ export async function PATCH(
     { params }: { params: { slug: number } }
 ) {
     const countryId = params.slug
-    const countryInsert: CountryInsert = await request.json()
+    const countryInsert = prepareForPatch<CountryInsert>(await request.json())
 
-    let countryUpdate: any = {}
-
-    if (countryInsert.name) { 
-        countryUpdate.name = countryInsert.name
-    }
-    
-    if (countryInsert.longName) {
-        countryUpdate.longName = countryInsert.longName
-    }
-
-    const validate = validateInput(countryInsert, countryUpdate)
-    if (validate) { return validate }
-
-    await db.update(countries).set(countryUpdate).where(eq(countries.id, countryId))
+    await db.update(countries).set(countryInsert).where(eq(countries.id, countryId))
 
     return new Response(null, { status: 204 })
 }
+
+export async function DELETE(
+    request: Request,
+    { params }: { params: { slug: number } }
+) {
+    const countryId = params.slug
+
+    await db.delete(countries).where(eq(countries.id, countryId))
+
+    return new Response(null, { status: 204 })
+} 
 
 function validateInput(insertModel: any, updateModel: any) {
     if (insertModel.id != null) { 
@@ -56,16 +56,5 @@ function validateInput(insertModel: any, updateModel: any) {
 
     return null
 }
-
-export async function DELETE(
-    request: Request,
-    { params }: { params: { slug: number } }
-) {
-    const countryId = params.slug
-
-    await db.delete(countries).where(eq(countries.id, countryId))
-
-    return new Response(null, { status: 204 })
-} 
 
 export const dynamic = 'force-dynamic'

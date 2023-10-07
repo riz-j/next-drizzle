@@ -1,5 +1,5 @@
 import { sqliteTable, text, integer, uniqueIndex } from 'drizzle-orm/sqlite-core';
-import { InferInsertModel } from 'drizzle-orm';
+import { InferInsertModel, InferSelectModel } from 'drizzle-orm';
 
 export const countries = sqliteTable('countries', {
     id: integer('id').primaryKey(),
@@ -11,6 +11,7 @@ export const countries = sqliteTable('countries', {
 );
 
 export type CountryInsert = InferInsertModel<typeof countries>
+export type SelectCountry = InferSelectModel<typeof countries>
 
 export const states = sqliteTable('states', {
     id: integer('id').primaryKey(),
