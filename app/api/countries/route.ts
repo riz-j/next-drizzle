@@ -1,10 +1,24 @@
 import { db } from "@/db";
 import { CountryInsert, countries } from "@/db/schema";
+import { wild } from "@/utils/query";
+import { SQLWrapper, and, eq, like } from "drizzle-orm";
+import { NextRequest } from "next/server";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+    const id = request.nextUrl.searchParams.get('id')
+    const name = request.nextUrl.searchParams.get('name')
+    const longName = request.nextUrl.searchParams.get('longName')
+
+    const conditions: (SQLWrapper | undefined)[] = []
+
+    if (id) { conditions.push(eq(countries.id, parseInt(id))) }
+    if (name) { conditions.push(like(countries.name, wild(name))) }
+    if (longName) { conditions.push(like(countries.longName, wild(longName))) }
+
     const countriesList = await db
         .select()
         .from(countries)
+        .where(and(...conditions))
 
     return Response.json(countriesList)
 }
