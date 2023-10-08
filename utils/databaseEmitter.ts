@@ -1,5 +1,24 @@
 import { EventEmitter } from 'events';
 
+export enum NotificationEvent {
+    Insert = "Insert",
+    Update = "Update",
+    Delete = "Delete"
+}
+
+export enum PayloadType {
+    Country = "Country",
+    State = "State",
+    City = "City"
+}
+
+export type NotificationSome = {
+    id: number,
+    event: NotificationEvent,
+    payload: object
+    payloadType: PayloadType,
+}
+
 export class DatabaseEmitter { 
     private static emitter: EventEmitter | null = null;
 
