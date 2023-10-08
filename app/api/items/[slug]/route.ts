@@ -1,5 +1,7 @@
 import { db } from "@/db";
-import { states } from "@/db/schema";
+import { countries } from "@/db/schema";
+import { wildRight } from "@/utils/query";
+import { and, like } from "drizzle-orm";
 
 export async function GET(
     request: Request,
@@ -7,7 +9,15 @@ export async function GET(
 ) {
     const slug = params.slug;
 
-    const results = await db.query.countries.findMany()
+    const country = await db.query.countries.findMany({
+        where: and(
+            like(countries.name, wildRight(slug))
+        )
+    })
 
-    return Response.json(results)
+    if (country == null) {
+        return Response.json({ message: "Not found" }, { status: 404 })
+    }
+
+    return Response.json(country)
 }

@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { StateInsert, countries, states } from "@/db/schema";
+import { prepareForPost } from "@/utils/post";
 import { wild } from "@/utils/query";
 import { SQLWrapper, and, eq, like } from "drizzle-orm";
 import { NextRequest } from "next/server";
@@ -27,8 +28,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
-    const stateInsert: StateInsert = await request.json()
-    delete stateInsert.id
+    const stateInsert = prepareForPost<StateInsert>(await request.json())
 
     const insertedState = await db.insert(states).values(stateInsert).returning()
 
