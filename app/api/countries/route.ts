@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { CountryInsert, countries } from "@/db/schema";
+import { databaseEmitter } from "@/utils/databaseEmitter";
 import { wild } from "@/utils/query";
 import { SQLWrapper, and, eq, like } from "drizzle-orm";
 import { NextRequest } from "next/server";
@@ -31,6 +32,8 @@ export async function POST(request: Request) {
         .insert(countries)
         .values(countryInsert)
         .returning()
+
+    databaseEmitter.emit("message", newCountry)
 
     return Response.json(newCountry, { status: 201 })
 }

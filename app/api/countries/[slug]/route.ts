@@ -2,7 +2,6 @@ import { db } from "@/db"
 import { CitySelect, CountryInsert, StateSelect, cities, countries, states } from "@/db/schema"
 import { prepareForPatch } from "@/utils/patch"
 import { eq } from "drizzle-orm"
-import { useSearchParams } from "next/navigation"
 import { NextRequest } from "next/server"
 
 export async function GET(
