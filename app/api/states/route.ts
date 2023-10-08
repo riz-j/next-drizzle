@@ -10,17 +10,17 @@ export async function GET(request: NextRequest) {
     const name = request.nextUrl.searchParams.get('name')
     const abbrev = request.nextUrl.searchParams.get('abbrev')
 
-    const filter: (SQLWrapper | undefined)[] = []
+    const conditions: (SQLWrapper | undefined)[] = []
 
-    if (countryId) { filter.push(eq(states.countryId, parseInt(countryId))) }
-    if (id) { filter.push(eq(states.id, parseInt(id))) }
-    if (name) { filter.push(like(states['name'], wild(name))) }
-    if (abbrev) { filter.push(eq(states.abbrev, abbrev.toUpperCase())) }
+    if (countryId) { conditions.push(eq(states.countryId, parseInt(countryId))) }
+    if (id) { conditions.push(eq(states.id, parseInt(id))) }
+    if (name) { conditions.push(like(states.name, wild(name))) }
+    if (abbrev) { conditions.push(eq(states.abbrev, abbrev.toUpperCase())) }
 
     const statesList = await db.select().from(states)
         .leftJoin(countries, eq(states.countryId, countries.id))
-        .where(and(...filter))
-
+        .where(and(...conditions))
+        
     const formattedResults = statesList.map(({ states, ...rest }) => ({ ...states, ...rest }));
 
     return Response.json(formattedResults)
