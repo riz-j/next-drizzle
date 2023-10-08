@@ -1,6 +1,6 @@
 import { db } from "@/db";
 import { CountryInsert, countries } from "@/db/schema";
-import { DatabaseEmitter, NotificationEvent, NotificationSome, PayloadType } from "@/utils/databaseEmitter";
+import { databaseEmitter } from "@/utils/databaseEmitter";
 import { wild } from "@/utils/query";
 import { SQLWrapper, and, eq, like } from "drizzle-orm";
 import { NextRequest } from "next/server";
@@ -25,8 +25,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: Request) {
-    const emitter = DatabaseEmitter.getInstance()
-
     const countryInsert: CountryInsert = await request.json()
     delete countryInsert.id 
 
@@ -36,13 +34,13 @@ export async function POST(request: Request) {
         .returning()
     )[0]
         
-    const notification: NotificationSome = {
+    const notification = {
         id: newCountry.id,
-        event: NotificationEvent.Insert,
-        payloadType: PayloadType.Country,
+        event: "insert",
+        payloadType: "country",
         payload: newCountry
     }
-    emitter.emit("message", notification)
+    databaseEmitter.emit("message", notification)
 
     return Response.json(newCountry, { status: 201 })
 }
