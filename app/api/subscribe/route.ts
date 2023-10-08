@@ -16,7 +16,6 @@ export async function GET() {
     return new Response(responseStream.readable, {
         status: 200,
         headers: {
-            'Access-Control-Allow-Origin': '*',
             'Content-Type': 'text/event-stream',
             'Cache-Control': 'no-cache',
             'Connection': 'keep-alive'
