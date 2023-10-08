@@ -15,8 +15,8 @@ export enum PayloadType {
 export type NotificationSome = {
     id: number,
     event: NotificationEvent,
-    payload: object
     payloadType: PayloadType,
+    payload: object 
 }
 
 export class DatabaseEmitter { 

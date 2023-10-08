@@ -5,7 +5,7 @@ import { NotificationSome } from "@/utils/databaseEmitter";
 
 export async function POST(request: Request) {
     const emitter = DatabaseEmitter.getInstance()
-    
+
     const countryInsert: CountryInsert = await request.json()
     delete countryInsert.id 
     
@@ -18,8 +18,8 @@ export async function POST(request: Request) {
     const notification: NotificationSome = {
         id: newCountry.id,
         event: NotificationEvent.Insert,
-        payload: newCountry,
-        payloadType: PayloadType.Country
+        payloadType: PayloadType.Country,
+        payload: newCountry
     }
     emitter.emit("message", notification)
 
