@@ -4,7 +4,6 @@ import { DatabaseEmitter } from "@/utils/databaseEmitter";
 import { wild } from "@/utils/query";
 import { SQLWrapper, and, eq, like } from "drizzle-orm";
 import { NextRequest } from "next/server";
-import { EventEmitter } from "stream";
 
 export async function GET(request: NextRequest) {
     const id = request.nextUrl.searchParams.get('id')
@@ -36,7 +35,6 @@ export async function POST(request: Request) {
         
     const emitter = DatabaseEmitter.getInstance()
     emitter.emit("message", newCountry)
-    console.log(newCountry)
 
     return Response.json(newCountry, { status: 201 })
 }
