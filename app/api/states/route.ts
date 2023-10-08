@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { StateInsert, countries, states } from "@/db/schema";
 import { wild } from "@/utils/query";
-import { eq, like } from "drizzle-orm";
+import { SQLWrapper, and, eq, like } from "drizzle-orm";
 import { NextRequest } from "next/server";
 
 export async function GET(request: NextRequest) {
@@ -10,15 +10,17 @@ export async function GET(request: NextRequest) {
     const name = request.nextUrl.searchParams.get('name')
     const abbrev = request.nextUrl.searchParams.get('abbrev')
 
-    const query = db.select().from(states)
+    const filter: (SQLWrapper | undefined)[] = []
+
+    if (countryId) { filter.push(eq(states.countryId, parseInt(countryId))) }
+    if (id) { filter.push(eq(states.id, parseInt(id))) }
+    if (name) { filter.push(like(states['name'], wild(name))) }
+    if (abbrev) { filter.push(eq(states.abbrev, abbrev.toUpperCase())) }
+
+    const statesList = await db.select().from(states)
         .leftJoin(countries, eq(states.countryId, countries.id))
+        .where(and(...filter))
 
-    if (countryId) { query.where(eq(states.countryId, parseInt(countryId))) }
-    if (id) { query.where(eq(states.id, parseInt(id))) }
-    if (name) { query.where(like(states['name'], wild(name))) }
-    if (abbrev) { query.where(eq(states.abbrev, abbrev.toUpperCase())) }
-
-    const statesList = await query
     const formattedResults = statesList.map(({ states, ...rest }) => ({ ...states, ...rest }));
 
     return Response.json(formattedResults)

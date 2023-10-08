@@ -1,7 +1,13 @@
+import { db } from "@/db";
+import { states } from "@/db/schema";
+
 export async function GET(
     request: Request,
     { params }: { params: { slug: string } }
 ) {
     const slug = params.slug;
-    return Response.json(params)
+
+    const results = await db.query.countries.findMany()
+
+    return Response.json(results)
 }
